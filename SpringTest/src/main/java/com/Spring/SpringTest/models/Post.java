@@ -2,12 +2,15 @@ package com.Spring.SpringTest.models;
 
 import jakarta.persistence.*;
 
-@Entity //анотация сущности
+@Entity //entity annotation
 public class Post {
-    @Id //анотация айди
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // генерация нового ключа вместо авто
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // generation new key NO AUTO
+    @Column(nullable = false,unique = true)
     private long id;
-    private String title;//,anons,fulltext;
+     @Column(nullable = false)
+    private String title;
+     @Column(nullable = false)
     private String anons;
     private String full_text;
     private int views;
