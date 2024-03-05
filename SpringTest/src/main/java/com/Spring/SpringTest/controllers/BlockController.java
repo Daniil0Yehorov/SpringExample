@@ -1,6 +1,6 @@
 package com.Spring.SpringTest.controllers;
 
-//import ch.qos.logback.core.model.Model; не работает addAttribute з почему
+//import ch.qos.logback.core.model.Model; not worked addAttribute dont know why xD
 import org.springframework.ui.Model;
 import com.Spring.SpringTest.Repos.PostRepository;
 import com.Spring.SpringTest.models.Post;
@@ -21,7 +21,7 @@ public class BlockController {
     @GetMapping("/blog")
     //гет при переходе на адрес
     public String blogMain(Model model){
-        Iterable <Post> posts=postRepository.findAll();//масив данных из полученной таблички с бд
+        Iterable <Post> posts=postRepository.findAll();
         model.addAttribute("posts",posts);
         return "blog-main";
     }
@@ -34,28 +34,20 @@ public class BlockController {
     public String blogPostAdd(@RequestParam String title,@RequestParam String anons,
                               @RequestParam String full_text,Model model) {
         Post post=new Post(title,anons,full_text);
-        postRepository.save(post);//сохранение обьекта
-        return "redirect:/blog";//переадресовка на друго юрл адресс
+        postRepository.save(post);//saving object
+        return "redirect:/blog";//redirect to another URL address
     }
     @GetMapping("/blog/{id}")
     public String blogDetails(@PathVariable(value="id") long id, Model model){
         if(postRepository.existsById(id)){
-         Optional<Post> post =postRepository.findById(id);//создаем обьект и записуем туда найденный пост
+         Optional<Post> post =postRepository.findById(id);//create an object and write the found post there
          ArrayList<Post> res =new ArrayList<>();
-         post.ifPresent(res::add);//закидываем обьект в масив, чтобы вывести его в html правильно
+         post.ifPresent(res::add);//throw the object into an array to display it in html correctly
          model.addAttribute("post",res);
             return "blog-details";
         }
         else {return "blog-main";}
     }
-    /*
-    //удаление это работает тоже
-    @GetMapping("/blog/{id}/delete")
-    public String blogdelete(@PathVariable(value = "id")long id,Model model){
-        Optional<Post> postToDel=postRepository.findById(id);
-        postToDel.ifPresent(post->postRepository.delete(post));
-        return "redirect:/blog";
-    }*/
     @PostMapping("/blog/{id}/delete")
     public String blogdelete(@PathVariable(value = "id")long id,Model model){
         Post postToDel=postRepository.findById(id).orElseThrow();
@@ -74,8 +66,8 @@ public class BlockController {
     @PostMapping("/blog/{id}/edit")
     public String blogUpdate(@PathVariable(value = "id")long id,@RequestParam String title,@RequestParam String anons,
                            @RequestParam String full_text,Model model){
-        Post post =postRepository.findById(id).orElseThrow();//orelsethrow исключение, елси нету поста
-        //Если новые данные атрибутов пустые, то значения не меняются во избежания с проблемами мискликов и т.д
+        Post post =postRepository.findById(id).orElseThrow();//orelsethrow exeption
+        //If the new attribute data is empty, then the values do not change to avoid problems with misclicks, etc.
         if (title != null && !title.isEmpty()) {
             post.setTitle(title);
         }
