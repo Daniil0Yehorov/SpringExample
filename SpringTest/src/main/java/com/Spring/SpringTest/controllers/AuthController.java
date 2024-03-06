@@ -20,6 +20,7 @@ public class AuthController {
                              @RequestParam String passwordCheck,Model model){
         User user = userRepository.findByLogin(login);
         boolean loginExists = false;
+        if(user!=null){
         // CheckLogin for same
             if (user.getLogin().equals(login)) {
                 loginExists = true;
@@ -31,7 +32,7 @@ public class AuthController {
         if (loginExists) {
             model.addAttribute("error", "Login already exists");
             return "registration";// back to registration with error
-        }
+        }}
         User newUser = new User(login, password);
         userRepository.save(newUser);
         model.addAttribute("UserName",newUser.getLogin());
