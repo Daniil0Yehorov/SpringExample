@@ -39,7 +39,7 @@ public class AuthController {
         model.addAttribute("loggedIn",true);//True to destroy links for reg and login
         return "home";
     }
-    @GetMapping("/log")
+    @PostMapping("/log")
     public String Login(@RequestParam String login,@RequestParam String password,Model model)
     {
         User user = userRepository.findByLogin(login);
