@@ -9,8 +9,8 @@
 <h2>Registration Form</h2>
 <form action="/reg" method="post">
   <input type="text" name="login" placeholder="create login" class="form-control"><br>
-  <input type="text" name="password" placeholder="create password" class="form-control"><br>
-  <input type="text" name="passwordCheck" placeholder="confirm password" class="form-control"><br>
+  <input type="password" name="password" placeholder="create password" class="form-control"><br>
+  <input type="password" name="passwordCheck" placeholder="confirm password" class="form-control"><br>
   <button type="submit" class="btn btn-success">Reg on</button>
 </form>
 <br><p th:text=" ${error}"/><br>
